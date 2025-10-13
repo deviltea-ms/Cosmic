@@ -27,3 +27,6 @@ database/docker-pg-db-data
 
 # config.yaml
 config.yaml
+
+# docker-compose.yaml
+docker-compose.yaml
