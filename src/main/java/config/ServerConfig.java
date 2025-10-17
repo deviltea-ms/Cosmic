@@ -299,4 +299,11 @@ public class ServerConfig {
 
     //Custom NPC overrides. List of NPC IDs.
     public Map<String, String> NPCS_SCRIPTABLE = new HashMap<>();
+
+    //Amount of nxCredit given when a new account is created
+    public int NEW_ACCOUNT_NX_CREDIT;
+
+    //Reward NX credit for killing a monster
+    public int REWARD_NX_CREDIT_PER_MOB;
+    public int REWARD_NX_CREDIT_MOB_LEVEL_RANGE;
 }

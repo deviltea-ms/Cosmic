@@ -1423,6 +1423,21 @@ public class MapleMap {
                 if (dropOwner == null) {
                     dropOwner = chr;
                 }
+
+                // Reward NX Credit for killing a monster
+                int nxPerMob = YamlConfig.config.server.REWARD_NX_CREDIT_PER_MOB;
+                int levelRange = YamlConfig.config.server.REWARD_NX_CREDIT_MOB_LEVEL_RANGE;
+                // Check if the monster is within the level range
+                if (
+                    nxPerMob > 0 
+                    && monster.getStats().getLevel() >= chr.getLevel() - levelRange 
+                    && monster.getStats().getLevel() <= chr.getLevel() + levelRange
+                ) {
+                    int nxCredit = nxPerMob;
+                    chr.sendPacket(PacketCreator.earnTitleMessage("You have earned " + nxCredit + " NX Credit for defeating " + monster.getName() + "!"));
+                    chr.getCashShop().gainCash(1, nxCredit);
+                }
+
                 dropFromMonster(dropOwner, monster, false, dropDelay);
             }
 
