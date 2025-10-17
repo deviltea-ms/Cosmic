@@ -306,4 +306,7 @@ public class ServerConfig {
     //Reward NX credit for killing a monster
     public int REWARD_NX_CREDIT_PER_MOB;
     public int REWARD_NX_CREDIT_MOB_LEVEL_RANGE;
+
+    //Fallback value for item slotMax
+    public short DEFAULT_ITEM_SLOTMAX;
 }

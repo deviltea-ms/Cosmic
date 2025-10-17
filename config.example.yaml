@@ -461,3 +461,5 @@ server:
     REWARD_NX_CREDIT_PER_MOB: 0
     REWARD_NX_CREDIT_MOB_LEVEL_RANGE: 10
 
+    #Fallback value for item slotMax
+    DEFAULT_ITEM_SLOTMAX: 100

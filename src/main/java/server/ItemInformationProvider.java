@@ -359,7 +359,7 @@ public class ItemInformationProvider {
                 if (ItemConstants.getInventoryType(itemId).getType() == InventoryType.EQUIP.getType()) {
                     ret = 1;
                 } else {
-                    ret = 100;
+                    ret = YamlConfig.config.server.DEFAULT_ITEM_SLOTMAX;
                 }
             } else {
                 ret = (short) DataTool.getInt(smEntry);
