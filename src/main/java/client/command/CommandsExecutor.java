@@ -36,6 +36,7 @@ import client.command.commands.gm0.JoinEventCommand;
 import client.command.commands.gm0.LeaveEventCommand;
 import client.command.commands.gm0.MapOwnerClaimCommand;
 import client.command.commands.gm0.OnlineCommand;
+import client.command.commands.gm0.PetIgnoreCommand;
 import client.command.commands.gm0.RanksCommand;
 import client.command.commands.gm0.RatesCommand;
 import client.command.commands.gm0.ReadPointsCommand;
@@ -341,6 +342,7 @@ public class CommandsExecutor {
         levelCommandsCursor = new Pair<>(new ArrayList<String>(), new ArrayList<String>());
 
         addCommand(new String[]{"help", "commands"}, HelpCommand.class);
+        addCommand("petignore", PetIgnoreCommand.class);
         addCommand("droplimit", DropLimitCommand.class);
         addCommand("time", TimeCommand.class);
         addCommand("credits", StaffCommand.class);

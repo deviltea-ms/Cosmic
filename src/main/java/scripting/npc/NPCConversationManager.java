@@ -216,7 +216,11 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
     }
 
     public void sendGetText(String text) {
-        getClient().sendPacket(PacketCreator.getNPCTalkText(npc, text, ""));
+        sendGetText(text, "");
+    }
+
+    public void sendGetText(String text, String def) {
+        getClient().sendPacket(PacketCreator.getNPCTalkText(npc, text, def));
     }
 
     /*

@@ -140,6 +140,7 @@ public class ItemInformationProvider {
     protected Map<Integer, Data> skillUpgradeInfoCache = new HashMap<>();
     protected Map<Integer, Pair<Integer, Set<Integer>>> cashPetFoodCache = new HashMap<>();
     protected Map<Integer, QuestConsItem> questItemConsCache = new HashMap<>();
+    protected List<Pair<Integer, String>> droppableItems = new ArrayList<>();
 
     private ItemInformationProvider() {
         loadCardIdData();
@@ -156,6 +157,7 @@ public class ItemInformationProvider {
 
         isQuestItemCache.put(0, false);
         isPartyQuestItemCache.put(0, false);
+        loadDroppableItems();
     }
 
 
@@ -2205,6 +2207,51 @@ public class ItemInformationProvider {
         }
 
         return list;
+    }
+
+    private void loadDroppableItems() {
+        // Load all droppable items from the database (drop_data)
+        try (Connection con = DatabaseConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT DISTINCT itemid FROM drop_data WHERE itemid != 0")) {
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int itemId = rs.getInt("itemid");
+                    droppableItems.add(new Pair<>(itemId, getName(itemId)));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Load all droppable items from the database (drop_data_global)
+        try (Connection con = DatabaseConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT DISTINCT itemid FROM drop_data_global WHERE itemid != 0")) {
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int itemId = rs.getInt("itemid");
+                    droppableItems.add(new Pair<>(itemId, getName(itemId)));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Pair<Integer, String>> getDroppableItems(String search) {
+        List<Pair<Integer, String>> items = new ArrayList<>();
+        String normalizedSearch = search.trim().toLowerCase();
+        // early return if search is empty
+        if (normalizedSearch.isEmpty()) {
+            return items;
+        }
+        for (Pair<Integer, String> item : droppableItems) {
+            if (item.getRight().toLowerCase().contains(normalizedSearch)) {
+                items.add(item);
+            }
+        }
+        return items;
     }
 
     private boolean canUseSkillBook(Character player, Integer skillBookId) {
