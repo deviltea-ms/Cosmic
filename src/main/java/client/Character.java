@@ -316,7 +316,6 @@ public class Character extends AbstractCharacterObject {
     private final Lock prtLock = new ReentrantLock();
     private final Lock cpnLock = new ReentrantLock();
     private final Map<Integer, Set<Integer>> excluded = new LinkedHashMap<>();
-    private final Set<Integer> excludedItems = new LinkedHashSet<>();
     private final Set<Integer> disabledPartySearchInvites = new LinkedHashSet<>();
     private static final String[] ariantroomleader = new String[3];
     private static final int[] ariantroomslot = new int[3];
@@ -1206,7 +1205,7 @@ public class Character extends AbstractCharacterObject {
             addhp += Randomizer.rand(300, 350);
             addmp += Randomizer.rand(150, 200);
         }
-        
+
         /*
         //aran perks?
         int newJobId = newJob.getId();
@@ -1290,7 +1289,7 @@ public class Character extends AbstractCharacterObject {
         if (guild != null) {
             guild.broadcast(packet, id);
         }
-        
+
         /*
         if(partnerid > 0) {
             partner.sendPacket(packet); not yet implemented
@@ -4857,36 +4856,17 @@ public class Character extends AbstractCharacterObject {
         }
     }
 
-    public void commitExcludedItems() {
-        Map<Integer, Set<Integer>> petExcluded = this.getExcluded();
-
+    public void removeExcluded(int petId, int x) {
         chrLock.lock();
         try {
-            excludedItems.clear();
+            excluded.get(petId).remove(x);
         } finally {
             chrLock.unlock();
         }
+    }
 
-        for (Map.Entry<Integer, Set<Integer>> pe : petExcluded.entrySet()) {
-            byte petIndex = this.getPetIndex(pe.getKey());
-            if (petIndex < 0) {
-                continue;
-            }
-
-            Set<Integer> exclItems = pe.getValue();
-            if (!exclItems.isEmpty()) {
-                sendPacket(PacketCreator.loadExceptionList(this.getId(), pe.getKey(), petIndex, new ArrayList<>(exclItems)));
-
-                chrLock.lock();
-                try {
-                    for (Integer itemid : exclItems) {
-                        excludedItems.add(itemid);
-                    }
-                } finally {
-                    chrLock.unlock();
-                }
-            }
-        }
+    public void commitExcludedItems() {
+        exportExcludedItems(client);
     }
 
     public void exportExcludedItems(Client c) {
@@ -4914,12 +4894,15 @@ public class Character extends AbstractCharacterObject {
     }
 
     public Set<Integer> getExcludedItems() {
-        chrLock.lock();
-        try {
-            return Collections.unmodifiableSet(excludedItems);
-        } finally {
-            chrLock.unlock();
-        }
+        Pet leadPet = getPet(0);
+        if (leadPet == null)
+            return new LinkedHashSet<>();
+
+        Set<Integer> set = getExcluded().get(leadPet.getPetId());
+        if (set == null)
+            return new LinkedHashSet<>();
+
+        return set;
     }
 
     public int getExp() {

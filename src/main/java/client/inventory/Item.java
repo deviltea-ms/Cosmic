@@ -128,6 +128,10 @@ public class Item implements Comparable<Item> {
         this.owner = owner;
     }
 
+    public void setPetId(int id) {
+        this.petid = id;
+    }
+
     public int getPetId() {
         return petid;
     }

@@ -71,6 +71,7 @@ public class Pet extends Item {
     private Pet(int id, short position, int uniqueid) {
         super(id, position, (short) 1);
         this.uniqueid = uniqueid;
+        this.setPetId(uniqueid);
         this.pos = new Point(0, 0);
     }
 
