@@ -175,8 +175,10 @@ public final class Channel {
             return;
         }
 
-        eventSM.cancel();
-        eventSM = null;
+        if(eventSM != null) {
+            eventSM.cancel();
+            eventSM = null;
+        }
         eventSM = new EventScriptManager(this, getEvents());
     }
 
