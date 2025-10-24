@@ -27,6 +27,7 @@ import client.Client;
 import client.command.commands.gm0.ChangeLanguageCommand;
 import client.command.commands.gm0.DisposeCommand;
 import client.command.commands.gm0.DropLimitCommand;
+import client.command.commands.gm0.DropMesosCommand;
 import client.command.commands.gm0.EnableAuthCommand;
 import client.command.commands.gm0.EquipLvCommand;
 import client.command.commands.gm0.GachaCommand;
@@ -343,6 +344,7 @@ public class CommandsExecutor {
 
         addCommand(new String[]{"help", "commands"}, HelpCommand.class);
         addCommand("petignore", PetIgnoreCommand.class);
+        addCommand("dmeso", DropMesosCommand.class);
         addCommand("droplimit", DropLimitCommand.class);
         addCommand("time", TimeCommand.class);
         addCommand("credits", StaffCommand.class);
