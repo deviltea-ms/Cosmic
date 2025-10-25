@@ -21,7 +21,13 @@
 */
 package tools;
 
+import constants.string.CharsetConstants;
+
 public class StringUtil {
+    public static int getLengthInBytes(String str) {
+        return str.getBytes(CharsetConstants.CHARSET).length;
+    }
+
     /**
      * Gets a string padded from the left to <code>length</code> by
      * <code>padchar</code>.
@@ -33,7 +39,7 @@ public class StringUtil {
      */
     public static String getLeftPaddedStr(String in, char padchar, int length) {
         StringBuilder builder = new StringBuilder(length);
-        for (int x = in.length(); x < length; x++) {
+        for (int x = getLengthInBytes(in); x < length; x++) {
             builder.append(padchar);
         }
         builder.append(in);
@@ -51,7 +57,7 @@ public class StringUtil {
      */
     public static String getRightPaddedStr(String in, char padchar, int length) {
         StringBuilder builder = new StringBuilder(in);
-        for (int x = in.length(); x < length; x++) {
+        for (int x = getLengthInBytes(in); x < length; x++) {
             builder.append(padchar);
         }
         return builder.toString();

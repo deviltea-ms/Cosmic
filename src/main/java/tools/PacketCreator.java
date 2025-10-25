@@ -124,6 +124,8 @@ import java.util.Set;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
 
+import static tools.StringUtil.getRightPaddedStr;
+
 /**
  * @author Frz
  */
@@ -182,7 +184,7 @@ public class PacketCreator {
 
     private static void addCharStats(OutPacket p, Character chr) {
         p.writeInt(chr.getId()); // character id
-        p.writeFixedString(StringUtil.getRightPaddedStr(chr.getName(), '\0', 13));
+        p.writeFixedString(getRightPaddedStr(chr.getName(), '\0', 13));
         p.writeByte(chr.getGender()); // gender (0 = male, 1 = female)
         p.writeByte(chr.getSkinColor().getId()); // skin color
         p.writeInt(chr.getFace()); // face
@@ -428,7 +430,7 @@ public class PacketCreator {
         addExpirationTime(p, item.getExpiration());
         if (isPet) {
             Pet pet = item.getPet();
-            p.writeFixedString(StringUtil.getRightPaddedStr(pet.getName(), '\0', 13));
+            p.writeFixedString(getRightPaddedStr(pet.getName(), '\0', 13));
             p.writeByte(pet.getLevel());
             p.writeShort(pet.getTameness());
             p.writeByte(pet.getFullness());
@@ -6745,14 +6747,6 @@ public class PacketCreator {
         return p;
     }
 
-    private static String getRightPaddedStr(String in, char padchar, int length) {
-        StringBuilder builder = new StringBuilder(in);
-        for (int x = in.length(); x < length; x++) {
-            builder.append(padchar);
-        }
-        return builder.toString();
-    }
-
     public static Packet MobDamageMobFriendly(Monster mob, int damage, int remainingHp) {
         final OutPacket p = OutPacket.create(SendOpcode.DAMAGE_MONSTER);
         p.writeInt(mob.getObjectId());
@@ -6807,8 +6801,8 @@ public class PacketCreator {
                 p.writeInt(ItemId.WEDDING_RING_MOONSTONE); // Engagement Ring's Outcome (doesn't matter for engagement)
                 p.writeInt(ItemId.WEDDING_RING_MOONSTONE); // Engagement Ring's Outcome (doesn't matter for engagement)
             }
-            p.writeFixedString(StringUtil.getRightPaddedStr(chr.getGender() == 0 ? chr.getName() : Character.getNameById(chr.getPartnerId()), '\0', 13));
-            p.writeFixedString(StringUtil.getRightPaddedStr(chr.getGender() == 0 ? Character.getNameById(chr.getPartnerId()) : chr.getName(), '\0', 13));
+            p.writeFixedString(getRightPaddedStr(chr.getGender() == 0 ? chr.getName() : Character.getNameById(chr.getPartnerId()), '\0', 13));
+            p.writeFixedString(getRightPaddedStr(chr.getGender() == 0 ? Character.getNameById(chr.getPartnerId()) : chr.getName(), '\0', 13));
         } else {
             p.writeShort(0);
         }
@@ -6971,9 +6965,9 @@ public class PacketCreator {
             p.writeInt(item.getSN());
             p.writeShort(item.getQuantity());
         }
-        p.writeFixedString(StringUtil.getRightPaddedStr(item.getGiftFrom(), '\0', 13));
+        p.writeFixedString(getRightPaddedStr(item.getGiftFrom(), '\0', 13));
         if (isGift) {
-            p.writeFixedString(StringUtil.getRightPaddedStr(giftMessage, '\0', 73));
+            p.writeFixedString(getRightPaddedStr(giftMessage, '\0', 73));
             return;
         }
         addExpirationTime(p, item.getExpiration());

@@ -196,9 +196,16 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 public class Character extends AbstractCharacterObject {
     private static final Logger log = LoggerFactory.getLogger(Character.class);
     private static final String LEVEL_200 = "[Congrats] %s has reached Level %d! Congratulate %s on such an amazing achievement!";
-    private static final String[] BLOCKED_NAMES = {"admin", "owner", "moderator", "intern", "donor", "administrator", "FREDRICK", "help", "helper", "alert", "notice", "maplestory", "fuck", "wizet", "fucking", "negro", "fuk", "fuc", "penis", "pussy", "asshole", "gay",
+    private static final String[] BLOCKED_NAMES = {
+            // english words - including administrative, offensive, and game-related terms
+            "admin", "owner", "moderator", "intern", "donor", "administrator", "FREDRICK", "help", "helper", "alert", "notice", "maplestory", "fuck", "wizet", "fucking", "negro", "fuk", "fuc", "penis", "pussy", "asshole", "gay",
             "nigger", "homo", "suck", "cum", "shit", "shitty", "condom", "security", "official", "rape", "nigga", "sex", "tit", "boner", "orgy", "clit", "asshole", "fatass", "bitch", "support", "gamemaster", "cock", "gaay", "gm",
-            "operate", "master", "sysop", "party", "GameMaster", "community", "message", "event", "test", "meso", "Scania", "yata", "AsiaSoft", "henesys"};
+            "operate", "master", "sysop", "party", "GameMaster", "community", "message", "event", "test", "meso", "Scania", "yata", "AsiaSoft", "henesys",
+            // mandarin words (traditional) - including administrative, offensive, and game-related terms
+            "管理員", "系統", "官方", "客服", "測試", "操作員", "駭客", "操你媽", "操你娘", "管理員", "傻逼", "傻B", "雞巴", "妓女", "賣淫", "色情", "群交", "操蛋", "牛逼", "牛B", "臥槽", "他媽的",
+            "幹你娘", "幹你媽", "幹你老母", "肏你媽", "肏你娘", "肏你老母", "媽的", "媽逼", "媽B", "媽比", "屄", "屌", "屌你", "屌你媽", "屌你娘", "屌你老母", "陰道", "陰莖", "陰蒂", "陰戶", "賤人", "賤B", "賤逼", "賤比", "操妳媽", "操妳娘", "操妳老母",
+            "妳媽的", "妳媽逼", "妳媽B", "妳媽比", "幹妳娘", "幹妳媽", "幹妳老母", "肏妳媽", "肏妳娘", "肏妳老母", "智障", "白癡", "低能兒", "笨蛋", "蠢蛋", "臭雞巴", "臭雞掰", "臭屄", "臭屌", "臭屁", "操你全家", "幹你全家", "肏你全家", "操妳全家", "幹妳全家", "肏妳全家",
+    };
 
     private int world;
     private int accountid, id, level;
@@ -982,7 +989,9 @@ public class Character extends AbstractCharacterObject {
                 return false;
             }
         }
-        return getIdByName(name) < 0 && Pattern.compile("[a-zA-Z0-9]{3,12}").matcher(name).matches();
+        return getIdByName(name) < 0
+                // besides ASCII, allow Han, Hiragana, Katakana, Hangul
+                && Pattern.compile("^[\\p{IsHan}\\p{IsHiragana}\\p{IsKatakana}\\p{IsHangul}a-zA-Z0-9]{3,12}$").matcher(name).matches();
     }
 
     public boolean canDoor() {

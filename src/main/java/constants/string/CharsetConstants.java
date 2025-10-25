@@ -35,7 +35,8 @@ public class CharsetConstants {
         LANGUAGE_US("US-ASCII"),
         LANGUAGE_PT_BR("ISO-8859-1"),
         LANGUAGE_THAI("TIS620"),
-        LANGUAGE_KOREAN("MS949");
+        LANGUAGE_KOREAN("MS949"),
+        LANGUAGE_ZH_TW("BIG5");
 
         private final String charset;
 
@@ -78,6 +79,7 @@ public class CharsetConstants {
         String configCharset = loadCharsetFromConfig();
         if (configCharset != null) {
             Language language = Language.fromCharset(configCharset);
+            log.info("Using charset: {}", language.getCharset());
             return Charset.forName(language.getCharset());
         }
 
