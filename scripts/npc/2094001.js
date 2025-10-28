@@ -74,7 +74,7 @@ function action(mode, type, selection) {
                             if (cm.canHold(1003267, 1)) {
                                 cm.gainItem(1002573, -1);
                                 cm.gainItem(4001158, -20);
-                                cm.gainItem(1003267, 1);
+                                cm.gainItem(1002574, 1);
                                 cm.sendOk("I have given you the hat.");
                             } else {
                                 cm.sendOk("Please make room in your EQUIP inventory before receiving the hat.");
