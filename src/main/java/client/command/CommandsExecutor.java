@@ -24,6 +24,7 @@
 package client.command;
 
 import client.Client;
+import client.command.commands.gm0.AioSalonCommand;
 import client.command.commands.gm0.ChangeLanguageCommand;
 import client.command.commands.gm0.DisposeCommand;
 import client.command.commands.gm0.DropLimitCommand;
@@ -343,6 +344,7 @@ public class CommandsExecutor {
         levelCommandsCursor = new Pair<>(new ArrayList<String>(), new ArrayList<String>());
 
         addCommand(new String[]{"help", "commands"}, HelpCommand.class);
+        addCommand("salon", AioSalonCommand.class);
         addCommand("petignore", PetIgnoreCommand.class);
         addCommand("dmeso", DropMesosCommand.class);
         addCommand("droplimit", DropLimitCommand.class);
