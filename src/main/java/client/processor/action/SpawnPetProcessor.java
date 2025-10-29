@@ -25,6 +25,7 @@ import client.SkillFactory;
 import client.inventory.InventoryType;
 import client.inventory.Pet;
 import client.inventory.manipulator.InventoryManipulator;
+import client.keybind.KeyBinding;
 import constants.id.ItemId;
 import provider.DataProvider;
 import provider.DataProviderFactory;
@@ -88,6 +89,12 @@ public class SpawnPetProcessor {
                     chr.addPet(pet);
                     chr.getMap().broadcastMessage(c.getPlayer(), PacketCreator.showPet(c.getPlayer(), pet, false, false), true);
                     c.sendPacket(PacketCreator.petStatUpdate(c.getPlayer()));
+
+                    KeyBinding autohpPot = chr.getKeymap().get(91);
+                    c.sendPacket(PacketCreator.sendAutoHpPot(autohpPot != null ? autohpPot.getAction() : 0));
+                    KeyBinding autompPot = chr.getKeymap().get(92);
+                    c.sendPacket(PacketCreator.sendAutoMpPot(autompPot != null ? autompPot.getAction() : 0));
+
                     c.sendPacket(PacketCreator.enableActions());
 
                     chr.commitExcludedItems();

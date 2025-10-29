@@ -69,14 +69,16 @@ public final class KeymapChangeHandler extends AbstractPacketHandler {
                     c.disconnect(false, false); // Don't let them send a packet with a use item they dont have.
                     return;
                 }
-                c.getPlayer().changeKeybinding(91, new KeyBinding(7, itemID));
+                if (itemID != 0)
+                    c.getPlayer().changeKeybinding(91, new KeyBinding(7, itemID));
             } else if (mode == 2) { // Auto MP Potion
                 int itemID = p.readInt();
                 if (itemID != 0 && c.getPlayer().getInventory(InventoryType.USE).findById(itemID) == null) {
                     c.disconnect(false, false); // Don't let them send a packet with a use item they dont have.
                     return;
                 }
-                c.getPlayer().changeKeybinding(92, new KeyBinding(7, itemID));
+                if (itemID != 0)
+                    c.getPlayer().changeKeybinding(92, new KeyBinding(7, itemID));
             }
         }
     }
