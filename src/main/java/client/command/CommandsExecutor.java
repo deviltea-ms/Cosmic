@@ -34,6 +34,7 @@ import client.command.commands.gm0.EquipLvCommand;
 import client.command.commands.gm0.GachaCommand;
 import client.command.commands.gm0.GmCommand;
 import client.command.commands.gm0.HelpCommand;
+import client.command.commands.gm0.InventoryHelperCommand;
 import client.command.commands.gm0.JoinEventCommand;
 import client.command.commands.gm0.LeaveEventCommand;
 import client.command.commands.gm0.MapOwnerClaimCommand;
@@ -346,6 +347,7 @@ public class CommandsExecutor {
         addCommand(new String[]{"help", "commands"}, HelpCommand.class);
         addCommand("salon", AioSalonCommand.class);
         addCommand("petignore", PetIgnoreCommand.class);
+        addCommand("invhelper", InventoryHelperCommand.class);
         addCommand("dmeso", DropMesosCommand.class);
         addCommand("droplimit", DropLimitCommand.class);
         addCommand("time", TimeCommand.class);
