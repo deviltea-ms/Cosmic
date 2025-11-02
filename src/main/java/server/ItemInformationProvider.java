@@ -1099,6 +1099,14 @@ public class ItemInformationProvider {
                             break;
 
                         default:
+                            int scrollStatRate = YamlConfig.config.server.SCROLL_STAT_RATE;
+                            if (scrollStatRate > 1) {
+                                Map<String, Integer> newStats = new LinkedHashMap<>(stats); // to avoid modifying the cached stats
+                                newStats.forEach((key, value) -> {
+                                    newStats.put(key, value * scrollStatRate);
+                                });
+                                stats = newStats;
+                            }
                             improveEquipStats(nEquip, stats);
                             break;
                     }
