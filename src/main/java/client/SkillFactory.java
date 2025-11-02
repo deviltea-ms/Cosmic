@@ -83,7 +83,9 @@ import server.StatEffect;
 import server.life.Element;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 public class SkillFactory {
     private static volatile Map<Integer, Skill> skills = new HashMap<>();
@@ -401,5 +403,16 @@ public class SkillFactory {
         }
 
         return null;
+    }
+
+    public static Map<Integer, Skill> getSkillsByJob(Job job) {
+        int jobId = job.getId();
+        return skills.entrySet().stream()
+                .filter((skillEntry) -> (skillEntry.getKey() / 10000) == jobId)
+                .collect(
+                        HashMap::new,
+                        (m, e) -> m.put(e.getKey(), e.getValue()),
+                        HashMap::putAll
+                );
     }
 }

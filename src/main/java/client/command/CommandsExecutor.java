@@ -36,6 +36,7 @@ import client.command.commands.gm0.GmCommand;
 import client.command.commands.gm0.HelpCommand;
 import client.command.commands.gm0.InventoryHelperCommand;
 import client.command.commands.gm0.JoinEventCommand;
+import client.command.commands.gm0.LearnSkillsCommand;
 import client.command.commands.gm0.LeaveEventCommand;
 import client.command.commands.gm0.MapOwnerClaimCommand;
 import client.command.commands.gm0.OnlineCommand;
@@ -349,6 +350,7 @@ public class CommandsExecutor {
         addCommand("petignore", PetIgnoreCommand.class);
         addCommand("invhelper", InventoryHelperCommand.class);
         addCommand("dmeso", DropMesosCommand.class);
+        addCommand("learnskills", LearnSkillsCommand.class);
         addCommand("droplimit", DropLimitCommand.class);
         addCommand("time", TimeCommand.class);
         addCommand("credits", StaffCommand.class);

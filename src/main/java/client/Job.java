@@ -21,6 +21,9 @@
 */
 package client;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum Job {
     BEGINNER(0),
 
@@ -131,5 +134,32 @@ public enum Job {
         case 4: THIEF;
         case 5: PIRATE;
         */
+    }
+
+    public static List<Job> getAdvancedJobs(Job currentJob) {
+        List<Job> advancedJobs = new ArrayList<>();
+        int currentId = currentJob.getId();
+        if (currentId  % 1000 == 0) { // beginner
+            return advancedJobs;
+        }
+
+        Job firstjob = getById(currentId / 100 * 100);
+        if (firstjob != null) {
+            advancedJobs.add(firstjob);
+        }
+        if (currentId % 100 == 0) { // first job
+            return advancedJobs;
+        }
+
+        // 2nd, 3rd, 4th jobs
+        List<Job> temp = new ArrayList<>();
+        for (int i = currentId; i >= (currentId / 10 * 10); i--) {
+            Job job = getById(i);
+            if (job != null) {
+                temp.addFirst(job);
+            }
+        }
+        advancedJobs.addAll(temp);
+        return advancedJobs;
     }
 }
